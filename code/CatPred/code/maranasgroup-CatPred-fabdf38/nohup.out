@@ -1,0 +1,76 @@
+Running pipeline: Training -> Prediction -> Analysis
+Checkpoint directory absolute path: /mnt/usb3/code/gfy/code/catpred_pipeline2/data/pretrained/reproduce_checkpoints
+Log directory absolute path: /mnt/usb3/code/gfy/code/catpred_pipeline2/data/results/reproduce_logs
+Output directory absolute path: /mnt/usb3/code/gfy/code/catpred_pipeline2/data/results/reproduce_results
+Running pipeline: Training -> Prediction -> Analysis
+Processing experiment: seqemb36_attn6_esm_ens10
+Starting training for parameter=kcat and exp=seqemb36_attn6_esm_ens10...
+Training for parameter=kcat and exp= completed successfully.
+Processing experiment: seqemb36_attn6_esm_ens10
+Starting prediction for parameter=kcat and experiment=seqemb36_attn6_esm_ens10...
+Prediction completed for parameter=kcat and experiment=seqemb36_attn6_esm_ens10. Logs saved to ../data/results/reproduce_logs/kcat_ablation_trainvalModel_expseqemb36_attn6_esm_ens10.log
+>> Starting analysis for kcat ...
+Running pipeline: Training -> Prediction -> Analysis
+Checkpoint directory absolute path: /mnt/usb3/code/gfy/code/catpred_pipeline2/data/pretrained/reproduce_checkpoints
+Log directory absolute path: /mnt/usb3/code/gfy/code/catpred_pipeline2/data/results/reproduce_logs
+Output directory absolute path: /mnt/usb3/code/gfy/code/catpred_pipeline2/data/results/reproduce_results
+Running pipeline: Training -> Prediction -> Analysis
+Processing experiment: seqemb36_attn6_esm_ens10
+Starting training for parameter=kcat and exp=seqemb36_attn6_esm_ens10...
+Training for parameter=kcat and exp= completed successfully.
+Processing experiment: seqemb36_attn6_esm_ens10
+Starting prediction for parameter=kcat and experiment=seqemb36_attn6_esm_ens10...
+Prediction completed for parameter=kcat and experiment=seqemb36_attn6_esm_ens10. Logs saved to ../data/results/reproduce_logs/kcat_ablation_trainvalModel_expseqemb36_attn6_esm_ens10.log
+>> Starting analysis for kcat ...
+Running pipeline: Training -> Prediction -> Analysis
+Checkpoint directory absolute path: /home/ubuntu/catpred_pipeline3/data/pretrained/reproduce_checkpoints
+Log directory absolute path: /home/ubuntu/catpred_pipeline3/data/results/reproduce_logs
+Output directory absolute path: /home/ubuntu/catpred_pipeline3/data/results/reproduce_results
+Running pipeline: Training -> Prediction -> Analysis
+Processing experiment: seqemb36_attn6_esm_ens10
+Starting training for parameter=kcat and exp=seqemb36_attn6_esm_ens10...
+Terminated
+Running pipeline: Training -> Prediction -> Analysis
+Checkpoint directory absolute path: /home/ubuntu/catpred_pipeline3/data/pretrained/reproduce_checkpoints
+Log directory absolute path: /home/ubuntu/catpred_pipeline3/data/results/reproduce_logs
+Output directory absolute path: /home/ubuntu/catpred_pipeline3/data/results/reproduce_results
+Running pipeline: Training -> Prediction -> Analysis
+Processing experiment: seqemb36_attn6_esm_ens10
+Starting training for parameter=kcat and exp=seqemb36_attn6_esm_ens10...
+./reproduce_training.sh: 1: ./scripts/fig3b_fig4_figS1_figS2.sh: Permission denied
+Running pipeline: Training -> Prediction -> Analysis
+./scripts/fig3b_fig4_figS1_figS2.sh: line 33: ./scripts/reproduce_ablation.sh: Permission denied
+Running pipeline: Training -> Prediction -> Analysis
+Checkpoint directory absolute path: /root/catpred_pipeline3/data/pretrained/reproduce_checkpoints
+Log directory absolute path: /root/catpred_pipeline3/data/results/reproduce_logs
+Output directory absolute path: /root/catpred_pipeline3/data/results/reproduce_results
+Running pipeline: Training -> Prediction -> Analysis
+Processing experiment: seqemb36_attn6_esm_ens10
+Starting training for parameter=kcat and exp=seqemb36_attn6_esm_ens10...
+Running pipeline: Training -> Prediction -> Analysis
+Checkpoint directory absolute path: /root/catpred_pipeline3/data/pretrained/reproduce_checkpoints
+Log directory absolute path: /root/catpred_pipeline3/data/results/reproduce_logs
+Output directory absolute path: /root/catpred_pipeline3/data/results/reproduce_results
+Running pipeline: Training -> Prediction -> Analysis
+Processing experiment: seqemb36_attn6_esm_ens10
+Starting training for parameter=kcat and exp=seqemb36_attn6_esm_ens10...
+Running pipeline: Training -> Prediction -> Analysis
+Checkpoint directory absolute path: /root/catpred_pipeline3/data/pretrained/reproduce_checkpoints
+Log directory absolute path: /root/catpred_pipeline3/data/results/reproduce_logs
+Output directory absolute path: /root/catpred_pipeline3/data/results/reproduce_results
+Running pipeline: Training -> Prediction -> Analysis
+Processing experiment: seqemb36_attn6_esm_ens10
+Starting training for parameter=kcat and exp=seqemb36_attn6_esm_ens10...
+Training for parameter=kcat and exp= completed successfully.
+Processing experiment: seqemb36_attn6_esm_ens10
+Starting prediction for parameter=kcat and experiment=seqemb36_attn6_esm_ens10...
+Running pipeline: Training -> Prediction -> Analysis
+Checkpoint directory absolute path: /root/catpred_pipeline3/data/pretrained/reproduce_checkpoints
+Log directory absolute path: /root/catpred_pipeline3/data/results/reproduce_logs
+Output directory absolute path: /root/catpred_pipeline3/data/results/reproduce_results
+Running pipeline: Training -> Prediction -> Analysis
+Processing experiment: seqemb36_attn6_esm_ens10
+Starting training for parameter=kcat and exp=seqemb36_attn6_esm_ens10...
+Training for parameter=kcat and exp= completed successfully.
+Processing experiment: seqemb36_attn6_esm_ens10
+Starting prediction for parameter=kcat and experiment=seqemb36_attn6_esm_ens10...

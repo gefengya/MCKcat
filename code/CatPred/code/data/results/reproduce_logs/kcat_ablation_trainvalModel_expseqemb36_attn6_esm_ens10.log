@@ -1,0 +1,16 @@
+Traceback (most recent call last):
+  File "/root/catpred_pipeline3/maranasgroup-CatPred-fabdf38/predict.py", line 35, in <module>
+    results = main()
+  File "/root/catpred_pipeline3/maranasgroup-CatPred-fabdf38/predict.py", line 30, in main
+    results = catpred_predict()
+  File "/root/catpred_pipeline3/maranasgroup-CatPred-fabdf38/catpred/train/make_predictions.py", line 515, in catpred_predict
+    make_predictions(args=PredictArgs().parse_args())
+  File "/root/miniconda3/envs/myenv/lib/python3.9/site-packages/tap/tap.py", line 478, in parse_args
+    self.process_args()
+  File "/root/catpred_pipeline3/maranasgroup-CatPred-fabdf38/catpred/args.py", line 990, in process_args
+    super(PredictArgs, self).process_args()
+  File "/root/catpred_pipeline3/maranasgroup-CatPred-fabdf38/catpred/args.py", line 214, in process_args
+    self.checkpoint_paths = get_checkpoint_paths(
+  File "/root/catpred_pipeline3/maranasgroup-CatPred-fabdf38/catpred/args.py", line 59, in get_checkpoint_paths
+    raise ValueError(f'Failed to find any checkpoints with extension "{ext}" in directory "{checkpoint_dir}"')
+ValueError: Failed to find any checkpoints with extension ".pt" in directory "../data/pretrained/reproduce_checkpoints//kcat_ablation_retrain/seqemb36_attn6_esm_ens10"
