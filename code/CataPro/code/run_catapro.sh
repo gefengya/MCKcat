@@ -52,7 +52,6 @@ train_single_fold() {
     # 3. Execute training command (arguments consistent with original script: -inp_fpath/-test_fpath etc.)
     python "$TRAIN_SCRIPT" \
         -inp_fpath "$train_path" \
-        -test_fpath "$test_path" \
         -model_dpath "$model_dir" \
         -batch_size "$BATCH_SIZE" \
         -device "$DEVICE"
