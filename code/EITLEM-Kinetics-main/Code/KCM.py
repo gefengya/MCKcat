@@ -4,8 +4,6 @@ import torch.nn.functional as F
 from torch_geometric.nn import global_add_pool
 from torch_geometric.utils import softmax
 from torch_geometric.utils import degree
-import numpy as np
-import math
 
 class Resnet(nn.Module):
     def __init__(self, in_dim, out_dim):
@@ -25,15 +23,15 @@ class ProMolAtt(nn.Module):
     def __init__(self, hidden_dim):
         super(ProMolAtt, self).__init__()
         self.q = nn.Linear(hidden_dim, hidden_dim)
-        self.merge = nn.Linear(2*hidden_dim, 1, bias=False) # 计算相似性函数
+        self.merge = nn.Linear(2*hidden_dim, 1, bias=False) # similarity function
         self.k = nn.Linear(hidden_dim, hidden_dim)
     def forward(self, mol, prot, batch):
-        q = F.relu(self.q(mol)) # 分子映射
-        r = q.repeat_interleave(degree(batch,  dtype=batch.dtype), dim=0) # 分子扩增
+        q = F.relu(self.q(mol)) # molecule projection
+        r = q.repeat_interleave(degree(batch,  dtype=batch.dtype), dim=0) # molecule expansion
         k = F.relu(self.k(prot))
-        score = self.merge(torch.cat([k, r], dim=-1)) # 计算相似性分数
-        score = softmax(score, batch, dim=0) # 权重加权
-        o = global_add_pool(k * score, batch) # 聚合全局向量
+        score = self.merge(torch.cat([k, r], dim=-1)) # compute similarity score
+        score = softmax(score, batch) # attention weighting
+        o = global_add_pool(k * score, batch) # aggregate global vector
         return o, q
     
 class AttentionAgg(nn.Module):
@@ -64,7 +62,7 @@ class MultiHeadAttenAgg(nn.Module):
     def forward(self, x, y):
         return self.seq_o(torch.cat([m(x, y) for m in self.seq_m], dim=-1))
 
-class EitlemKKmPredictor(nn.Module):
+class EitlemKcatPredictor(nn.Module):
     def __init__(self, 
                  mol_in_dim, 
                  hidden_dim=128, 
@@ -73,7 +71,7 @@ class EitlemKKmPredictor(nn.Module):
                  dropout=0.2, 
                  att_layer=10
                 ):
-        super(EitlemKKmPredictor, self).__init__()
+        super(EitlemKcatPredictor, self).__init__()
         self.prej1 = Resnet(mol_in_dim, hidden_dim)
         self.prej2 = nn.Linear(protein_dim, hidden_dim, bias=False)
         self.pro_extrac = nn.ModuleList([ProMolAtt(hidden_dim) for _ in range(layer)])
@@ -88,7 +86,6 @@ class EitlemKKmPredictor(nn.Module):
             nn.Dropout(p=dropout),
             nn.Linear(hidden_dim, 1)
         )
-        
     def final_stage(self, mol, pro):
         pro_out = self.att1(mol, pro)
         mol_out = self.att2(pro, mol)
@@ -106,3 +103,4 @@ class EitlemKKmPredictor(nn.Module):
         att_mol = torch.stack(att_mol, dim=1)
         att_pro = torch.stack(att_pro, dim=1)
         return self.final_stage(att_mol, att_pro)
+

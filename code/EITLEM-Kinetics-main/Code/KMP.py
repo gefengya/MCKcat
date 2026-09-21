@@ -4,6 +4,10 @@ import torch.nn.functional as F
 from torch_geometric.nn import global_add_pool
 from torch_geometric.utils import softmax
 from torch_geometric.utils import degree
+from sklearn.metrics import mean_squared_error,r2_score
+import numpy as np
+import math
+from torch import autocast
 
 class Resnet(nn.Module):
     def __init__(self, in_dim, out_dim):
@@ -23,32 +27,15 @@ class ProMolAtt(nn.Module):
     def __init__(self, hidden_dim):
         super(ProMolAtt, self).__init__()
         self.q = nn.Linear(hidden_dim, hidden_dim)
-        self.merge = nn.Linear(2*hidden_dim, 1, bias=False)  # 计算相似性函数
+        self.merge = nn.Linear(2*hidden_dim, 1, bias=False) # similarity function
         self.k = nn.Linear(hidden_dim, hidden_dim)
-
     def forward(self, mol, prot, batch):
-        # 打印 mol 和 prot 的维度
-#        print(f"mol shape: {mol.shape}")
-#        print(f"prot shape: {prot.shape}")
-
-        q = F.relu(self.q(mol))  # 分子映射
-#        print(f"q shape: {q.shape}")
-
-        r = q.repeat_interleave(degree(batch, dtype=batch.dtype), dim=0)  # 分子扩增
-#        print(f"r shape: {r.shape}")
-
+        q = F.relu(self.q(mol)) # molecule projection
+        r = q.repeat_interleave(degree(batch,  dtype=batch.dtype), dim=0) # molecule expansion
         k = F.relu(self.k(prot))
-#        print(f"k shape: {k.shape}")
-
-        score = self.merge(torch.cat([k, r], dim=-1))  # 计算相似性分数
-#        print(f"score shape: {score.shape}")
-
-        score = F.softmax(score, dim=0)  # 权重加权
-#        print(f"softmax score shape: {score.shape}")
-
-        o = global_add_pool(k * score, batch)  # 聚合全局向量
-#        print(f"o shape: {o.shape}")
-
+        score = self.merge(torch.cat([k, r], dim=-1)) # compute similarity score
+        score = softmax(score, batch, dim=0) # attention weighting
+        o = global_add_pool(k * score, batch) # aggregate global vector
         return o, q
     
 class AttentionAgg(nn.Module):
@@ -79,7 +66,7 @@ class MultiHeadAttenAgg(nn.Module):
     def forward(self, x, y):
         return self.seq_o(torch.cat([m(x, y) for m in self.seq_m], dim=-1))
 
-class EitlemKcatPredictor(nn.Module):
+class EitlemKmPredictor(nn.Module):
     def __init__(self, 
                  mol_in_dim, 
                  hidden_dim=128, 
@@ -88,7 +75,7 @@ class EitlemKcatPredictor(nn.Module):
                  dropout=0.2, 
                  att_layer=10
                 ):
-        super(EitlemKcatPredictor, self).__init__()
+        super(EitlemKmPredictor, self).__init__()
         self.prej1 = Resnet(mol_in_dim, hidden_dim)
         self.prej2 = nn.Linear(protein_dim, hidden_dim, bias=False)
         self.pro_extrac = nn.ModuleList([ProMolAtt(hidden_dim) for _ in range(layer)])
@@ -103,6 +90,8 @@ class EitlemKcatPredictor(nn.Module):
             nn.Dropout(p=dropout),
             nn.Linear(hidden_dim, 1)
         )
+        print('F')
+        
     def final_stage(self, mol, pro):
         pro_out = self.att1(mol, pro)
         mol_out = self.att2(pro, mol)
@@ -114,9 +103,7 @@ class EitlemKcatPredictor(nn.Module):
         att_pro = []
         att_mol = []
         for m in self.pro_extrac:
-        
             o, q = m(mol, prot, data.pro_emb_batch)
-#            print(data.pro_emb_batch)
             att_pro.append(o)
             att_mol.append(q)
         att_mol = torch.stack(att_mol, dim=1)

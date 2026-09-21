@@ -1,4 +1,5 @@
-
+## Similarity comparison
+## Compute similarity scores
 import torch
 # from Bio import SeqIO
 import biotite.sequence as seq
@@ -85,11 +86,11 @@ def seq_smi(args):
 
         seqIndex = {k:re.sub(r'[UZOB]', 'X', v) for k, v in seqIndex.items()}
 
-        # 设定进程池
+        # Set up the process pool
         pool = multiprocessing.Pool()
-        ## 设定工作目录
+        ## Set the working directory
         os.makedirs("./temp_seq_similarity", exist_ok=True)
-        # 获取训练集和测试集中的序列
+        # Get the sequences in the training and test sets
         searchSeq = set()
         querySeq = set()
         [ searchSeq.add(item[0]) for item in searchPairInfo]

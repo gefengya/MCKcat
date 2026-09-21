@@ -9,7 +9,7 @@ import os
 from scipy.stats import gaussian_kde
 import matplotlib.pyplot as plt
 from matplotlib import rc
-# 获取tensorboard数据函数
+# Function to retrieve TensorBoard data
 # def getTensorBoardData(path):
 #     file_list = os.listdir(path)
 #     data = defaultdict(dict)

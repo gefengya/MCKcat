@@ -89,8 +89,9 @@ class Trainer(object):
         return train_MAE, train_rmse, train_r2, loss_train/N
 
 def get_pair_info(dataset_path, Type, infer=True):
-    train_pair = torch.load(os.path.join(dataset_path, Type, f"{Type}TrainPairInfo"))
-    test_pair = torch.load(os.path.join(dataset_path, Type, f"{Type}TestPairInfo"))
+    train_pair = torch.load(os.path.join(dataset_path,  f"KCATTrainPairInfo"))
+#    print(train_pair)
+    test_pair = torch.load(os.path.join(dataset_path,f"KCATTestPairInfo"))
     if infer:
         extra_info = torch.load(os.path.join(dataset_path, Type, f"extraInfo"))
         train_pair.extend(extra_info[:int(0.9*len(extra_info))])

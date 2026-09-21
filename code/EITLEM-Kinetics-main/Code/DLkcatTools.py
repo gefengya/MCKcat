@@ -3,7 +3,7 @@ import sys
 # import model
 import torch
 import numpy as np
-# 加载数据集
+# Load dataset
 from Bio import SeqIO
 from rdkit.Chem import AllChem
 from rdkit import Chem

@@ -137,12 +137,12 @@ def split(sm):
         arr.append(sm[i])
     return ' '.join(arr) 
 
-# 活性化関数
+# Activation function
 class GELU(nn.Module):
     def forward(self, x):
         return 0.5 * x * (1 + torch.tanh(math.sqrt(2 / math.pi) * (x + 0.044715 * torch.pow(x, 3))))
 
-# 位置情報を考慮したFFN
+# Position-wise feed-forward network
 class PositionwiseFeedForward(nn.Module):
     def __init__(self, d_model, d_ff, dropout=0.1):
         super(PositionwiseFeedForward, self).__init__()
@@ -154,7 +154,7 @@ class PositionwiseFeedForward(nn.Module):
     def forward(self, x):
         return self.w_2(self.dropout(self.activation(self.w_1(x))))
     
-# 正規化層
+# Normalization layer
 class LayerNorm(nn.Module):
     def __init__(self, features, eps=1e-6):
         super(LayerNorm, self).__init__()

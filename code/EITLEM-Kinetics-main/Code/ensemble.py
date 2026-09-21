@@ -25,15 +25,15 @@ class ProMolAtt(nn.Module):
     def __init__(self, hidden_dim):
         super(ProMolAtt, self).__init__()
         self.q = nn.Linear(hidden_dim, hidden_dim)
-        self.merge = nn.Linear(2*hidden_dim, 1, bias=False) # 计算相似性函数
+        self.merge = nn.Linear(2*hidden_dim, 1, bias=False) # similarity function
         self.k = nn.Linear(hidden_dim, hidden_dim)
     def forward(self, mol, prot, batch):
-        q = F.relu(self.q(mol)) # 分子映射
-        r = q.repeat_interleave(degree(batch,  dtype=batch.dtype), dim=0) # 分子扩增
+        q = F.relu(self.q(mol)) # molecule projection
+        r = q.repeat_interleave(degree(batch,  dtype=batch.dtype), dim=0) # molecule expansion
         k = F.relu(self.k(prot))
-        score = self.merge(torch.cat([k, r], dim=-1)) # 计算相似性分数
-        score = softmax(score, batch, dim=0) # 权重加权
-        o = global_add_pool(k * score, batch) # 聚合全局向量
+        score = self.merge(torch.cat([k, r], dim=-1)) # compute similarity score
+        score = softmax(score, batch, dim=0) # attention weighting
+        o = global_add_pool(k * score, batch) # aggregate global vector
         return o, q
     
 class AttentionAgg(nn.Module):
