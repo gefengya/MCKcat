@@ -17,7 +17,7 @@ MCKcat_github/
 │   │   └── requirements.txt
 │   ├── CatPred/    # Comparative Methods
 │   ├── CatPro/     # Comparative Methods
-│   ├── EITLEM/     # Comparative Methods
+│   ├── EITLEM-Kinetics-main/     # Comparative Methods
 │   └── TurNup/     # Comparative Methods
 └── data/
     ├── catpred_catpro/
