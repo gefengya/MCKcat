@@ -116,7 +116,7 @@ def get_datasets(inp_fpath, ProtT5_model, MolT5_model, kf):
         print(f"Found {len(missing_smiles)} missing SMILES features, computing...")
         with warnings.catch_warnings():
             warnings.filterwarnings("ignore")
-            new_features = Smi_to_vec(missing_smiles, MolT5_model)
+            new_features = get_molT5_embed(missing_smiles, MolT5_model)
         for smi, feat in zip(missing_smiles, new_features):
             smi_molT5_dict[smi] = feat
         save_features(smi_molT5_file, smi_molT5_dict)
@@ -133,7 +133,7 @@ def get_datasets(inp_fpath, ProtT5_model, MolT5_model, kf):
                     with warnings.catch_warnings():
                         warnings.filterwarnings("ignore")
                         try:
-                            feat = Smi_to_vec([smile], MolT5_model)
+                            feat = get_molT5_embed([smile], MolT5_model)
                             if isinstance(feat, np.ndarray) and feat.size > 0:
                                 smi_molT5_dict[smile] = feat
                                 mol_feats.append(feat)

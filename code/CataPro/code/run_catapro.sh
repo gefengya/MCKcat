@@ -33,7 +33,6 @@ train_single_fold() {
     local dataset_name="$1"
     local fold="$2"
     local train_path="$3"
-    local test_path="$4"
 
     # 1. 构建模型保存目录（按“数据集/折数”分层，避免文件冲突）
     local model_subdir="${dataset_name}"
@@ -58,7 +57,6 @@ train_single_fold() {
     # 3. 执行训练命令（参数与原脚本保持一致：-inp_fpath/-test_fpath等）
     python "$TRAIN_SCRIPT" \
         -inp_fpath "$train_path" \
-        -test_fpath "$test_path" \
         -model_dpath "$model_dir" \
         -batch_size "$BATCH_SIZE" \
         -device "$DEVICE"
