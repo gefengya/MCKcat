@@ -26,30 +26,11 @@ MCKcat_github/
 ```
 
 ## Core Dependencies
-Before running MCKcat, ensure the following dependencies are installed (Python 3.8+ is recommended):
-
+Before running MCKcat, we recommend creating a dedicated conda environment with **Python 3.9**.
 ```bash
-# Basic data processing libraries
-pandas==1.5.3
-numpy==1.24.3
-scikit-learn==1.2.2
-scipy==1.10.1
-
-# Deep learning frameworks
-torch==2.0.1
-transformers==4.28.1
-
-# Cheminformatics tools
-rdkit-pypi==2023.3.3
-rxnfp==1.2.1
-
-# Utility libraries
-tqdm==4.65.0
-gzip==3.3.4
-pickle-mixin==1.0
-```
-
-Quick installation command:
+# Create and activate conda environment
+conda create -n mckcat python=3.9 -y
+conda activate mckcat
 ```bash
 pip install -r requirements.txt
 ```
